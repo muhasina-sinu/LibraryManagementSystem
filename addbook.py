@@ -17,8 +17,8 @@ def add():
     
     cur.execute(sql)
     con.commit()
-      
-    num.set("0")
+    book_id = temp1+1  
+    num.set(book_id)
     title.set("")
     author.set("")
     status.set("")
@@ -36,11 +36,19 @@ def addbook():
     top = Toplevel()
     top.title("Library")
     top.geometry("800x700")
+    
+    sql = "select max(book_id) from books;"
+    cur.execute(sql)
+    result = cur.fetchone()
+    book_id = result[0]+1
+    
 
     num = IntVar()
     title = StringVar()
     author = StringVar()
     status = StringVar()
+    
+    num.set(book_id)
 
     img = ImageTk.PhotoImage(Image.open("/Users/sinu/Documents/MUHASINA/my project/python/lib.jpeg"))
 
