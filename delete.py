@@ -8,15 +8,27 @@ from tkinter import messagebox
 
 def delete():
     global con,cur,num
-    temp1 = num.get()
-    sql = "delete from books where book_id=%s;" % temp1
-    try:  
-        cur.execute(sql)
-        con.commit()
-        messagebox.showinfo("info", "Book deleted succesfully.")
-        num.set("0")
+    try:
+        temp1 = num.get()
+        check = "select EXISTS(select * from books where book_id = %s);"% (temp1)
+        cur.execute(check)
+        result = cur.fetchone()
+        sql = "delete from books where book_id=%s;" % (temp1)
+        if result[0] == 1: 
+            cur.execute(sql)
+            check2 = "select EXISTS(select * from books_issued where book_id = %s);"% (temp1)
+            cur.execute(check2)
+            result2 = cur.fetchone()
+            if result2[0] == 1:
+                query = "delete from books_issued where book_id=%s;" %(temp1)
+                cur.execute(query)
+            con.commit()
+            messagebox.showinfo("info", "Book deleted succesfully.")
+            num.set("0")
+        else:
+            messagebox.showerror("Error", "Please check the book id!")
     except:
-        messagebox.showerror("Error", "Please check the book id!")
+         messagebox.showerror("Error", "Please check the book id!")
 
    
 def deletebook():

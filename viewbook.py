@@ -1,8 +1,6 @@
 from tkinter import *
 from tkinter import ttk
 from PIL import ImageTk, Image  
-from tkmacosx import Button
-from tkinter import font
 import mysql.connector
 
 def viewbook():

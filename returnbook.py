@@ -8,17 +8,30 @@ from tkinter import messagebox
 
 def back():
     global con,cur,num
-    temp1 = num.get()
-    update = "UPDATE books set status='available' where book_id =%s;" %temp1
-    sql = "delete from books_issued where book_id=%s;" % temp1
-    try:  
-        cur.execute(update)
-        cur.execute(sql)
-        con.commit()
-        messagebox.showinfo("info", "Details added succesfully.")
-        num.set("0")
+    try:
+        temp1 = num.get()
+        check = "select EXISTS(select * from books_issued where book_id = %s);"% (temp1)
+        cur.execute(check)
+        result = cur.fetchone()
+
+        if result[0] == 0 or temp1 == "" :
+            messagebox.showerror("Error", "Please check the book id!")
+
+        else:
+            update = "UPDATE books set status='available' where book_id =%s;" %temp1
+            sql = "delete from books_issued where book_id=%s;" % temp1
+            try:  
+                cur.execute(update)
+                cur.execute(sql)
+                con.commit()
+                messagebox.showinfo("info", "Details added succesfully.")
+                num.set("0")
+            except:
+                messagebox.showerror("Error", "Please check the book id!")
     except:
         messagebox.showerror("Error", "Please check the book id!")
+        
+    
 
    
 def returnbook():

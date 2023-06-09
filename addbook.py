@@ -3,26 +3,41 @@ from PIL import ImageTk, Image
 from tkmacosx import Button
 from tkinter import font
 import mysql.connector
-import pymysql
+from tkinter import messagebox
+from issuebook import *
 
 
 def add():
     global num,title,author,status,cur,con
-    temp1 = num.get()
-    temp2 = title.get()
-    temp3 = author.get()
-    temp4 = status.get()
-    #cur.execute("INSERT INTO books (book_id, title, author, status) VALUES (%s, '%s', '%s', '%s');" % (temp1,temp2,temp3,temp4))
-    sql = "INSERT INTO books (book_id, title, author, status) VALUES (%s, '%s', '%s', '%s');" % (temp1,temp2,temp3,temp4)
-    
-    cur.execute(sql)
-    con.commit()
-    book_id = temp1+1  
-    num.set(book_id)
-    title.set("")
-    author.set("")
-    status.set("")
-       
+    try:
+        temp1 = num.get()
+        temp2 = title.get()
+        temp3 = author.get()
+        temp4 = status.get()
+        if temp2 == "" or temp3 == "":
+            messagebox.showerror("Error", "Please enter valid inputs")
+        else:    
+        #cur.execute("INSERT INTO books (book_id, title, author, status) VALUES (%s, '%s', '%s', '%s');" % (temp1,temp2,temp3,temp4))
+            sql = "INSERT INTO books (book_id, title, author, status) VALUES (%s, '%s', '%s', '%s');" % (temp1,temp2,temp3,temp4)
+            try:
+                cur.execute(sql)
+                con.commit()
+                book_id = temp1+1  
+                num.set(book_id)
+                title.set("")
+                author.set("")
+                status.set("")
+                messagebox.showinfo("info", "Details added succesfully.")
+                if temp4 == "Issued":
+                    issuebook()
+                
+            except:
+                messagebox.showerror("Error", "Please check book id.")
+    except:
+        messagebox.showerror("Error", "Please check the input fields.")
+
+        
+        
     
     
 
@@ -70,9 +85,13 @@ def addbook():
     canvas1.create_text( 220, 270, text = "Author",fill='red',font=('times',20))    
     author_entry = Entry(top,width=40,textvariable=author)
     author_entry.place(y=260,x=300)
+    
+    options = ["Available","Issued"]
+    
+    status.set( "Available" )
         
     canvas1.create_text( 220, 300, text = "Status",fill='red',font=('times',20))    
-    status_entry = Entry(top,width=40,textvariable=status)
+    status_entry = OptionMenu(top, status, *options )
     status_entry.place(y=290,x=300)
 
 
