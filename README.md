@@ -1,6 +1,5 @@
 # Library Management System
 
-![Library Management System](/path/to/your/logo.png)
 
 **Library Management System** is a Python-based application designed to simplify the process of managing a library's book catalog. It offers features for adding, deleting, issuing, and returning books. The system provides a user-friendly interface for both librarians and patrons.
 
