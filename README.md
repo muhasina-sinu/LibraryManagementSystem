@@ -1,5 +1,28 @@
-# LibraryManagementSystem
-Run the base file library.py
+# Library Management System
+
+![Library Management System](/path/to/your/logo.png)
+
+**Library Management System** is a Python-based application designed to simplify the process of managing a library's book catalog. It offers features for adding, deleting, issuing, and returning books. The system provides a user-friendly interface for both librarians and patrons.
+
+## Features
+
+- **Add Book Details**: Easily add new books to the library catalog, including book ID, title, author, and status (available or issued).
+
+- **Delete Books**: Remove books from the catalog by entering the book's ID. Checks are in place to ensure data accuracy.
+
+- **View Book List**: Browse and view the entire library book list, including book ID, title, author, and status.
+
+- **Issue and Return Books**: Manage book borrowing and returning processes. Change book status accordingly.
+
+## Prerequisites
+
+Before you get started, ensure you have the following dependencies installed:
+
+- Python 3.x
+- Tkinter (for GUI)
+- PIL (Python Imaging Library)
+- MySQL or MariaDB
+- Additional Python libraries: `tkmacosx`, `mysql-connector-python`
 
 ![Screenshot 2023-06-09 at 5 59 07 AM](https://github.com/muhasina-sinu/LibraryManagementSystem/assets/121364702/aae190f8-dfbd-4297-84b5-f2c1d547169d)
 ![Screenshot 2023-06-09 at 6 00 35 AM](https://github.com/muhasina-sinu/LibraryManagementSystem/assets/121364702/d3893009-f829-4d23-8718-6c37890f4da8)
